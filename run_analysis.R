@@ -1,0 +1,10 @@
+print("Loading test...")
+testData <- loadUciData("UCI HAR Dataset","test")
+print("Loading train...")
+trainData <- loadUciData("UCI HAR Dataset","train")
+print("Merging...")
+data <- rbind.data.frame(trainData,testData)
+print("Subsetting to first dataset...")
+firstSet <- data[,grep("mean|std|actLab",colnames(data))]
+print("Aggregating second dataset...")
+secondSet <- aggregate(data[,-563],by=list(data$actNum,data$actLab,data$subject), FUN=mean)
